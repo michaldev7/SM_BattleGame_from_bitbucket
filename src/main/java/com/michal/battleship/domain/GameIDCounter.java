@@ -7,7 +7,7 @@ public class GameIDCounter {
     private final AtomicInteger counter = new AtomicInteger();
 
     public int incrementAndGet() {
-        return  counter.incrementAndGet();
+        return counter.incrementAndGet();
     }
 
     public int getCounter() {
