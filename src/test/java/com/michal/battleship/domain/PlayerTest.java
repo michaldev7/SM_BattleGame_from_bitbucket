@@ -1,5 +1,6 @@
 package com.michal.battleship.domain;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -12,26 +13,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
 
     @Test
-    void creatP(){
+    @DisplayName("Each player in game should have one token when Player object is created.")
+    void shouldCreatePlayerTokenWhenPlayerIsCreated(){
         Player p = new Player();
-        p.setToken("s");
-        p.getToken();
+        assertNotNull(p.getToken());
+        assertTrue(p.getToken().length()>0);
     }
 
-    //    @Test
-    //    void newPlayerScoreShouldBeZero() {
-    //        List list = new ArrayList();
-    //        list.add("st");
-    //        list.add(1);
-    //        Player player = new Player();
-    //        player.getScore();
-    //        assertEquals(0, player.getScore().get());
-    //    }
-    //
-    //    @Test
-    //    void playerScoreShouldBeIncrementByOnePoint() {
-    //        Player p = new Player();
-    //        p.addScore();
-    //        assertEquals(1, p.getScore().get());
-    //    }
+    @Test
+    @DisplayName("When new player is created, then his score of game should be zero.")
+    void newCreatedPlayerShouldHaveZeroScore(){
+        Player p = new Player();
+        assertNotNull(p.getScore());
+        assertEquals(0, p.getScore().get());
+    }
 }

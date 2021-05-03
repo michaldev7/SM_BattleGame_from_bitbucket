@@ -2,20 +2,14 @@ package com.michal.battleship.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.http.HttpHeaders;
 
 @Data
-//@AllArgsConstructor
+@AllArgsConstructor
 public class Game {
-
     private long id;
     private Player playerA;
     private Player playerB;
-
-    public Game(long id, Player playerA, Player playerB) {
-        this.id=id;
-        this.playerA = playerA;
-        this.playerB = playerB;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -27,4 +21,13 @@ public class Game {
         return this.id == other.id;
     }
 
+    /*
+    Return auth token for Player.
+     */
+    public HttpHeaders getToken() {
+        HttpHeaders headers = new HttpHeaders();
+        String token = getPlayerB()==null ? getPlayerA().getToken() : getPlayerB().getToken();
+        headers.set("Set-Auth-Token", token);
+        return headers;
+    }
 }

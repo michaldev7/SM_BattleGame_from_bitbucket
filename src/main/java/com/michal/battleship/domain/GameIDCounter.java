@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameIDCounter {
 
-    private final AtomicInteger counter = new AtomicInteger();
+    private final AtomicInteger counter = new AtomicInteger(0);
 
     public int incrementAndGet() {
         return counter.incrementAndGet();

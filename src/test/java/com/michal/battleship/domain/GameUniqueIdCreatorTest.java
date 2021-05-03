@@ -1,5 +1,6 @@
 package com.michal.battleship.domain;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CountDownLatch;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameUniqueIdCreatorTest {
 
     @Test
+    @DisplayName("Should generate game id without any error")
     void shouldGenerateCorrectId() {
         GameIDCounter counter = new GameIDCounter();
         for (int i = 0; i < 500; i++) {
@@ -21,6 +23,7 @@ class GameUniqueIdCreatorTest {
     }
 
     @Test
+    @DisplayName("Game id generator should calculate correct game ID in multithread processing")
     void shouldGenerateCorrectIdWhileMultithreadingConcurrentAccess() throws InterruptedException {
         int totalThreads = 10;
         ExecutorService service = Executors.newFixedThreadPool(50);
@@ -35,6 +38,7 @@ class GameUniqueIdCreatorTest {
     }
 
     @Test
+    @DisplayName("Game id generator should calculate correct game ID during concurrency processing")
     void shouldCountSumCorrectlyConcurrency() throws InterruptedException {
         int totalThreads = 10;
         ExecutorService service = Executors.newFixedThreadPool(10);
