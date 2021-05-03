@@ -1,16 +1,30 @@
 package com.michal.battleship.domain;
 
-import lombok.AllArgsConstructor;
+import com.michal.battleship.domain.type.PlayerType;
 import lombok.Data;
 import org.springframework.http.HttpHeaders;
 
+import java.time.Instant;
+
 @Data
-@AllArgsConstructor
 public class Game {
+    public static final String SET_AUTH_TOKEN = "Set-Auth-Token";
     private long id;
     private Player playerA;
     private Player playerB;
+    private Instant lockTimestamp;
+    private PlayerType playerTurn;
+    private Player winner = null;
 
+    public Game(long id, Player playerA, Player playerB) {
+        this.id = id;
+        this.playerA = playerA;
+        this.playerB = playerB;
+    }
+
+    /*
+    Return true if game.id equals compared game.id
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -22,12 +36,11 @@ public class Game {
     }
 
     /*
-    Return auth token for Player.
+    Helper methods for keep token logic inside Game class instead of controllers.
      */
-    public HttpHeaders getToken() {
+    public HttpHeaders getHeaderFor(PlayerType type) {
         HttpHeaders headers = new HttpHeaders();
-        String token = getPlayerB()==null ? getPlayerA().getToken() : getPlayerB().getToken();
-        headers.set("Set-Auth-Token", token);
+        headers.set(SET_AUTH_TOKEN, type.isHost() ? getPlayerA().getToken() : getPlayerB().getToken());
         return headers;
     }
 }

@@ -1,15 +1,9 @@
 package com.michal.battleship.dto;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.michal.battleship.domain.type.GameStatusType;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.michal.battleship.domain.type.UserGameStatus;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -20,21 +14,25 @@ import java.util.Map;
 public class StatusDTO {
 
     @JsonProperty("gameStatus")
-    private GameStatusType gameStatus;
+    private UserGameStatus gameStatus;
     @JsonProperty("yourScore")
     private Integer yourScore;
     @JsonProperty("opponentScore")
     private Integer opponentScore;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap();
+
+    public StatusDTO(int yourScore, int opponentScore, UserGameStatus gameStatus) {
+        this.opponentScore = opponentScore;
+        this.yourScore = yourScore;
+        this.gameStatus = gameStatus;
+    }
 
     @JsonProperty("gameStatus")
-    public GameStatusType getGameStatus() {
+    public UserGameStatus getGameStatus() {
         return gameStatus;
     }
 
     @JsonProperty("gameStatus")
-    public void setGameStatus(GameStatusType gameStatus) {
+    public void setGameStatus(UserGameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
@@ -57,15 +55,4 @@ public class StatusDTO {
     public void setOpponentScore(Integer opponentScore) {
         this.opponentScore = opponentScore;
     }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
 }

@@ -25,6 +25,6 @@ class PlayerTest {
     void newCreatedPlayerShouldHaveZeroScore(){
         Player p = new Player();
         assertNotNull(p.getScore());
-        assertEquals(0, p.getScore().get());
+        assertEquals(0, p.getScore());
     }
 }

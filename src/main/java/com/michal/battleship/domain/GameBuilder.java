@@ -1,17 +1,13 @@
 package com.michal.battleship.domain;
 
 
+import com.michal.battleship.domain.type.PlayerType;
+
 public class GameBuilder {
 
     private final long id;
     private Player playerA;
     private Player playerB;
-
-//    public GameBuilder(long id, Player playerA, Player playerB) {
-//        this.id = id;
-//        this.playerA = playerA;
-//        this.playerB = playerB;
-//    }
 
     public GameBuilder(long id) {
         this.id = id;
@@ -23,6 +19,7 @@ public class GameBuilder {
     }
 
     public Game build() {
+        playerA.setPlayerType(PlayerType.HOST);
         return new Game(id,playerA, playerB);
     }
 }
