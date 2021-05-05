@@ -8,7 +8,7 @@ import java.time.Instant;
 
 @Data
 public class Game {
-    public static final String SET_AUTH_TOKEN = "Set-Auth-Token";
+    public static final String KEY_TOKEN = "Set-Auth-Token";
     private long id;
     private Player playerA;
     private Player playerB;
@@ -23,7 +23,7 @@ public class Game {
     }
 
     /*
-    Return true if game.id equals compared game.id
+    Return true if game.id are equals
      */
     @Override
     public boolean equals(Object o) {
@@ -38,9 +38,9 @@ public class Game {
     /*
     Helper methods for keep token logic inside Game class instead of controllers.
      */
-    public HttpHeaders getHeaderFor(PlayerType type) {
+    public HttpHeaders getTokenHeaders(PlayerType type) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(SET_AUTH_TOKEN, type.isHost() ? getPlayerA().getToken() : getPlayerB().getToken());
+        headers.set(KEY_TOKEN, type.isHost() ? getPlayerA().getToken() : getPlayerB().getToken());
         return headers;
     }
 }

@@ -28,7 +28,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game createGame() {
-        Game game = new GameBuilder(gameID.incrementAndGet()).setPlayerA(new Player()).build();
+        Game game = new GameBuilder(gameID.incrementAndGet()).setPlayerA(new Player(PlayerType.HOST)).build();
         save(game);
         return game;
     }
@@ -85,16 +85,6 @@ public class GameServiceImpl implements GameService {
         return game;
     }
 
-//    @Override
-//    public Game unlock(long id) {
-//        Game game = games.get(id);
-//        if (game == null)
-//            throw new ApiException(HttpStatus.NOT_FOUND, "Game not exist. Please provide correct game ID or create new game");
-//        game.setLockTimestamp(null);
-//        save(game);
-//        return game;
-//    }
-
     @Override
     public Game unlock(Game game) {
         game.setLockTimestamp(null);
@@ -104,7 +94,7 @@ public class GameServiceImpl implements GameService {
 
     private synchronized Game executeNewPlayerAdding(Game game) {
         lockAndGet(game);
-        game.setPlayerB(new Player());
+        game.setPlayerB(new Player(PlayerType.HOST));
         game.setPlayerTurn(PlayerType.GUEST);
         save(game);
         unlock(game);

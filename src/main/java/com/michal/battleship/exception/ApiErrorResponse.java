@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import java.time.Instant;
 
 /*
-Custom exception handler. Below properties will be visible in response for customer API.
+Custom exception handler for API responses
  */
 @AllArgsConstructor
 @Getter

@@ -1,10 +1,7 @@
 package com.michal.battleship.domain;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.michal.battleship.dto.InvitationURLDTO;
+import com.michal.battleship.domain.type.Field;
+import com.michal.battleship.domain.type.PlayerType;
 import com.michal.battleship.service.GameService;
 import com.michal.battleship.service.impl.GameServiceImpl;
 import org.json.JSONException;
@@ -13,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,17 +18,30 @@ import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.Map;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // for restTemplate
 @ActiveProfiles("test")
 class GameTest {
-
-    private static final ObjectMapper om = new ObjectMapper();
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Mock
     GameService service;
+
+    @Test
+    void newPlayerShouldHaveCalculatedGameBoard(){
+        Player p = new Player(PlayerType.HOST);
+        Assertions.assertNotNull(p.getBattleBoard());
+        Map<String, Field> gameBoard = p.getBattleBoard().getGameBoard();
+        Assertions.assertNotNull(gameBoard);
+        Assertions.assertEquals(gameBoard.size(), 100);
+        Assertions.assertTrue(gameBoard.containsValue(Field.ONE_DECKER));
+        Assertions.assertTrue(gameBoard.containsValue(Field.TWO_DECKER));
+        Assertions.assertTrue(gameBoard.containsValue(Field.THREE_DECKER));
+        Assertions.assertTrue(gameBoard.containsValue(Field.FOUR_DECKER));
+    }
 
     @BeforeEach
     public void init() {
