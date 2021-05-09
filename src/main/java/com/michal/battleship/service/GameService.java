@@ -10,16 +10,11 @@ public interface GameService {
 
     Game createGame();
 
-    Game saveAndGet(Game game);
-
     InvitationResponseDTO getInvitationURL(long gameId);
 
     Game joinGame(Long id);
 
-    void unlock(Game game);
-
     HitResultDTO sendHitRequest(Long id, String token, HitRequestDTO hitDTO);
 
     StatusDTO getStatusFor(long gameId, String token);
-
 }

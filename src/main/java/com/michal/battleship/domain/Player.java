@@ -54,6 +54,9 @@ public class Player {
         return Objects.hash(token);
     }
 
+    /*
+     * Return true if type from argument match object
+     */
     public boolean isMatch(PlayerType playerToCompare) {
         return playerType == playerToCompare;
     }

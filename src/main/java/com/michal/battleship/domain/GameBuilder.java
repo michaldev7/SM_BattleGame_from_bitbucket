@@ -1,8 +1,10 @@
 package com.michal.battleship.domain;
 
-
 import com.michal.battleship.domain.type.PlayerType;
 
+/*
+This builder pattern can be extended to use ID from external API in future.
+ */
 public class GameBuilder {
 
     private final long id;

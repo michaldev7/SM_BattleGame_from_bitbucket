@@ -12,8 +12,10 @@ public class ApiException extends RuntimeException {
         this.status = status;
     }
 
-    //I verified sonar hints, but BindingResult will never be null and first line need to call super,
-    // so I decided to write own exceptions in below way
+    /*
+     * I verified sonar hints, but BindingResult will never be null and first line need to call super,
+     * so I decided to write own exceptions in below way
+     */
     public ApiException(HttpStatus status, BindingResult error) {
         super(error.getAllErrors().stream().findFirst().get().getDefaultMessage());
         this.status = status;

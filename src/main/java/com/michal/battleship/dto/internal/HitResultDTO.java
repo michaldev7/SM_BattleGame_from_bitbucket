@@ -5,6 +5,9 @@ import com.michal.battleship.domain.type.ShipType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/*
+ * Internal helper DTO to keep attack result in one place
+ */
 @Data
 @AllArgsConstructor
 public class HitResultDTO {

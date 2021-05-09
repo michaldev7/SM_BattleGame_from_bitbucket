@@ -44,7 +44,7 @@ public class Game {
     }
 
     /*
-    Helper methods for keep token logic inside Game class instead of controllers.
+     * Adding token headers inside this class to avoid moving too much logic to controller
      */
     public HttpHeaders getTokenHeaders(PlayerType type) {
         var headers = new HttpHeaders();
@@ -67,14 +67,15 @@ public class Game {
     }
 
     public void destroyShipAt(HitRequestDTO hit) {
-        getAwaitingOpponent().getBattleBoard().getGameBoard().put(hit.getPosition(), ShipType.POSITION_DESTROYED);
+        getAwaitingOpponent().getBattleBoard().makePositionShot(hit.getPosition());
     }
 
     /*
     This method return what opponent has placed at given position at game board
      */
     public ShipType getOpponentPositionAt(HitRequestDTO hit) {
-        return getAwaitingOpponent().getBattleBoard().getGameBoard().get(hit.getPosition());
+//        return getAwaitingOpponent().getBattleBoard().getGameBoard().get(hit.getPosition());
+        return getAwaitingOpponent().getBattleBoard().getContentOfPositionAt(hit.getPosition());
     }
 
     public void isFreeSlotAvailableThrowable() {
@@ -111,13 +112,4 @@ public class Game {
     public int getOpponentScore(PlayerType type) {
         return type.isHost() ? playerB.getScore() : playerA.getScore();
     }
-
-    /*
-    Each player have the same size of board so we can compare only one board
-    to check if position is out of game board map.
-     */
-    public boolean isPositionOutOfGameBoard(String position) {
-        return !getPlayerA().getBattleBoard().getGameBoard().containsKey(position);
-    }
-
 }

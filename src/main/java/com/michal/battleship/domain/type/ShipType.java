@@ -1,5 +1,8 @@
 package com.michal.battleship.domain.type;
 
+/*
+ * This class describe what are available fields on game map
+ */
 public enum ShipType {
 
     ONE_DECKER("HIT"),

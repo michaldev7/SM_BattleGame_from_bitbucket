@@ -26,5 +26,4 @@ public class StatusProcessor {
                 new RulesForFinishedGameStatus(game, asking),
                 new RulesForGameInProgressStatus(game, asking));
     }
-
 }

@@ -39,15 +39,13 @@ public class GameServiceImpl implements GameService {
         return game;
     }
 
-
     @Override
     public Game joinGame(Long gameId) {
         validateJoinGameRequest(gameId);
         return addSecondPlayerToGame(gameId);
     }
 
-    @Override
-    public synchronized Game saveAndGet(Game game) {
+    private Game saveAndGet(Game game) {
         games.put(game.getId(), game);
         return game;
     }
@@ -77,8 +75,7 @@ public class GameServiceImpl implements GameService {
         saveAndGet(game);
     }
 
-    @Override
-    public void unlock(Game game) {
+    private void unlock(Game game) {
         game.setLocked(false);
         saveAndGet(game);
     }
@@ -117,8 +114,7 @@ public class GameServiceImpl implements GameService {
     }
 
     private boolean isSunken(Game game, ShipType shipType) {
-        boolean hasOpponentAliveShipWithGivenType = game.getAwaitingOpponent().getBattleBoard().getGameBoard().containsValue(shipType);
-        return !hasOpponentAliveShipWithGivenType;
+        return game.getAwaitingOpponent().getBattleBoard().isShipSunken(shipType);
     }
 
     private ShipType getContentOfPosition(Game game, HitRequestDTO hit) {
@@ -138,7 +134,8 @@ public class GameServiceImpl implements GameService {
         if (status.getGameStatusDisplay().isGameCompleted()) {
             throw new ApiException(HttpStatus.METHOD_NOT_ALLOWED, "You cannot send hit request because game is finished");
         }
-        if (game.isPositionOutOfGameBoard(hit.getPosition())) {
+        boolean isHitPositionOutOfGameMap = !player.getBattleBoard().isPositionInsideGameBoard(hit.getPosition());
+        if (isHitPositionOutOfGameMap) {
             throw new ApiException(HttpStatus.NOT_ACCEPTABLE, "Position from request is incorrect and out of game map range. Allowed positions are between A1-J10");
         }
         if (game.isLocked()) {
