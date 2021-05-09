@@ -6,11 +6,11 @@ public enum PlayerType {
     HOST;
 
     public boolean isGuest() {
-        return  PlayerType.GUEST == this;
+        return PlayerType.GUEST == this;
     }
 
     public boolean isHost() {
-        return  PlayerType.HOST == this;
+        return PlayerType.HOST == this;
     }
 
 }

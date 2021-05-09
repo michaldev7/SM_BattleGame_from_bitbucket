@@ -23,7 +23,7 @@ public class Game {
     private PlayerType turn;
     private Player winner = null;
 
-    public Game(long id, Player playerA ) {
+    public Game(long id, Player playerA) {
         this.id = id;
         this.playerA = playerA;
     }
