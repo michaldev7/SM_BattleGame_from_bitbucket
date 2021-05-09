@@ -1,7 +1,6 @@
 package com.michal.battleship.exception;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -14,7 +13,7 @@ Custom exception handler for API responses
 @Getter
 public class ApiErrorResponse {
 
-    private String message;
-    private HttpStatus status;
-    private Instant timestamp;
+    private final String message;
+    private final HttpStatus status;
+    private final Instant timestamp;
 }

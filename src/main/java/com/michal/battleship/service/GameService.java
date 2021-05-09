@@ -1,17 +1,25 @@
 package com.michal.battleship.service;
 
 import com.michal.battleship.domain.Game;
-import com.michal.battleship.dto.InvitationURLDTO;
+import com.michal.battleship.dto.internal.StatusDTO;
+import com.michal.battleship.dto.internal.HitResultDTO;
+import com.michal.battleship.dto.HitRequestDTO;
+import com.michal.battleship.dto.InvitationResponseDTO;
 
 public interface GameService {
 
     Game createGame();
 
-    void save(Game game);
+    Game saveAndGet(Game game);
 
-    InvitationURLDTO getInvitationURL(long gameId);
+    InvitationResponseDTO getInvitationURL(long gameId);
 
     Game joinGame(Long id);
 
-    Game unlock(Game game);
+    void unlock(Game game);
+
+    HitResultDTO sendHitRequest(Long id, String token, HitRequestDTO hitDTO);
+
+    StatusDTO getStatusFor(long gameId, String token);
+
 }

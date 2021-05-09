@@ -20,7 +20,6 @@ class PlayerTest {
     @DisplayName("When new player is created, then his score of game should be zero.")
     void newCreatedPlayerShouldHaveZeroScore(){
         Player p = new Player(PlayerType.HOST);
-        assertNotNull(p.getScore());
         assertEquals(0, p.getScore());
     }
 }

@@ -5,8 +5,6 @@ public enum PlayerType {
     GUEST,
     HOST;
 
-    private PlayerType type;
-
     public boolean isGuest() {
         return  PlayerType.GUEST == this;
     }
@@ -15,7 +13,4 @@ public enum PlayerType {
         return  PlayerType.HOST == this;
     }
 
-    private PlayerType getType() {
-        return this.type;
-    }
 }

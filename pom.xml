@@ -12,7 +12,7 @@
     <artifactId>Battleship</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>BattleShip</name>
-    <description>Project for Batleship Game</description>
+    <description>Project for Battleship game</description>
     <properties>
         <java.version>11</java.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
@@ -61,6 +61,16 @@
             <artifactId>jsonassert</artifactId>
             <version>1.5.0</version>
         </dependency>
+<!--    Mapper-->
+        <dependency>
+            <groupId>ma.glasnost.orika</groupId>
+            <artifactId>orika-core</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
+
+
+
     </dependencies>
 
     <build>

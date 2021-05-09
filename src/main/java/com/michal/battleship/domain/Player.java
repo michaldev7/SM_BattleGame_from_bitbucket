@@ -2,10 +2,12 @@ package com.michal.battleship.domain;
 
 import com.michal.battleship.generic.GameBoard;
 import com.michal.battleship.domain.type.PlayerType;
+import com.michal.battleship.generic.GameConfig;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -19,21 +21,40 @@ public class Player {
     private String token = UUID.randomUUID().toString();
 
     /*
-    Force to not generate 'GET' method to avoid redundant code
+    Not generate 'GET' method to avoid redundant code
      */
     @Getter(AccessLevel.NONE)
-    private AtomicInteger score = new AtomicInteger(0);
+    private AtomicInteger score = new AtomicInteger(GameConfig.START_SCORE);
 
     public int getScore() {
         return score.get();
     }
 
-    public void addScore() {
+    public void addScoreAndGet() {
         score.incrementAndGet();
     }
 
     public Player(PlayerType type) {
         this.playerType = type;
         this.battleBoard = new BattleBoard(new GameBoard().drawBattleBoard(type));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Player))
+            return false;
+        Player other = (Player) o;
+        return this.token.equals(other.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(token);
+    }
+
+    public boolean isMatch(PlayerType playerToCompare) {
+        return playerType == playerToCompare;
     }
 }
