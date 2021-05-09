@@ -74,7 +74,6 @@ public class Game {
     This method return what opponent has placed at given position at game board
      */
     public ShipType getOpponentPositionAt(HitRequestDTO hit) {
-//        return getAwaitingOpponent().getBattleBoard().getGameBoard().get(hit.getPosition());
         return getAwaitingOpponent().getBattleBoard().getContentOfPositionAt(hit.getPosition());
     }
 
