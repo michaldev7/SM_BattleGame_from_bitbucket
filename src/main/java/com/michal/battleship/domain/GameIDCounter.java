@@ -2,6 +2,9 @@ package com.michal.battleship.domain;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/*
+ * Thread safe generator of game ID
+ */
 public class GameIDCounter {
 
     public static final int NEW_GAME_SCORE = 0;

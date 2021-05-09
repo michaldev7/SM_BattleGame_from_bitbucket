@@ -23,7 +23,7 @@ class GameUniqueIdCreatorTest {
     }
 
     @Test
-    @DisplayName("Game id generator should calculate correct game ID in multithread processing")
+    @DisplayName("Game id generator should calculate correct game ID in multi thread processing")
     void shouldGenerateCorrectIdWhileMultithreadingConcurrentAccess() throws InterruptedException {
         int totalThreads = 10;
         ExecutorService service = Executors.newFixedThreadPool(50);

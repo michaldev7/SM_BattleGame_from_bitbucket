@@ -1,7 +1,8 @@
 package com.michal.battleship.domain;
 
-import com.michal.battleship.domain.type.Field;
+import com.michal.battleship.domain.type.ShipType;
 import com.michal.battleship.domain.type.PlayerType;
+import com.michal.battleship.generic.GameConfig;
 import com.michal.battleship.service.GameService;
 import com.michal.battleship.service.impl.GameServiceImpl;
 import org.json.JSONException;
@@ -30,19 +31,6 @@ class GameTest {
     @Mock
     GameService service;
 
-    @Test
-    void newPlayerShouldHaveCalculatedGameBoard(){
-        Player p = new Player(PlayerType.HOST);
-        Assertions.assertNotNull(p.getBattleBoard());
-        Map<String, Field> gameBoard = p.getBattleBoard().getGameBoard();
-        Assertions.assertNotNull(gameBoard);
-        Assertions.assertEquals(gameBoard.size(), 100);
-        Assertions.assertTrue(gameBoard.containsValue(Field.ONE_DECKER));
-        Assertions.assertTrue(gameBoard.containsValue(Field.TWO_DECKER));
-        Assertions.assertTrue(gameBoard.containsValue(Field.THREE_DECKER));
-        Assertions.assertTrue(gameBoard.containsValue(Field.FOUR_DECKER));
-    }
-
     @BeforeEach
     public void init() {
         this.service = new GameServiceImpl();
@@ -50,7 +38,20 @@ class GameTest {
     }
 
     @Test
-    @DisplayName("When game is created, then http response 200 and headers contain token and ResponsEentity returned InvitationDTO URL")
+    void newPlayerShouldHaveCalculatedGameBoard() {
+        Player p = new Player(PlayerType.HOST);
+        Assertions.assertNotNull(p.getBattleBoard());
+        Map<String, ShipType> gameBoard = p.getBattleBoard().getGameBoard();
+        Assertions.assertNotNull(gameBoard);
+        Assertions.assertEquals(gameBoard.size(), GameConfig.GAME_SIZE * GameConfig.GAME_SIZE);
+        Assertions.assertTrue(gameBoard.containsValue(ShipType.ONE_DECKER));
+        Assertions.assertTrue(gameBoard.containsValue(ShipType.TWO_DECKER));
+        Assertions.assertTrue(gameBoard.containsValue(ShipType.THREE_DECKER));
+        Assertions.assertTrue(gameBoard.containsValue(ShipType.FOUR_DECKER));
+    }
+
+    @Test
+    @DisplayName("When game is created, then http response 200 and headers contain token and Response Entity returned InvitationDTO URL")
     void shouldCreateNewGameWithinInvitationURL2() throws JSONException {
         String expectedJson = "{\"invitationUrl\":\"/game/1/join\"}";
         HttpHeaders headers = new HttpHeaders();
@@ -58,7 +59,7 @@ class GameTest {
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange("/game", HttpMethod.POST, entity, String.class);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertTrue(response.getHeaders().containsKey("Set-Auth-Token"), "When game is created, the header 'Set-Auth-Token' is required");
+        Assertions.assertTrue(response.getHeaders().containsKey(GameConfig.SET_TOKEN_KEY), "When game is created, the header 'Set-Auth-Token' is required");
         JSONAssert.assertEquals(expectedJson, response.getBody(), false);
     }
 
