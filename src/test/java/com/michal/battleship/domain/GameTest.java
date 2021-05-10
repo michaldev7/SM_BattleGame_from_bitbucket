@@ -17,11 +17,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Map;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // for restTemplate
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 class GameTest {
 
@@ -34,7 +33,6 @@ class GameTest {
     @BeforeEach
     public void init() {
         this.service = new GameServiceImpl();
-        ReflectionTestUtils.setField(service, "InvitationURL", "/game/{idVar}/join");
     }
 
     @Test
