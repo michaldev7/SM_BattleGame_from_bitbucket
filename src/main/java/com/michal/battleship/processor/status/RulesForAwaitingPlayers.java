@@ -19,7 +19,7 @@ public class RulesForAwaitingPlayers implements StatusRuleCommander {
 
 
     private GameStatusDisplay getStatusIfApplicable() {
-        if (game.isGameAwaitingPlayer2()) return AWAITING_PLAYERS;
+        if (game.isGameAwaitingPlayer()) return AWAITING_PLAYERS;
         return null;
     }
 

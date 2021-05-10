@@ -18,7 +18,7 @@ public class RulesForGameInProgressStatus implements StatusRuleCommander {
     }
 
     private GameStatusDisplay getStatusIfApplicable() {
-        if (game.isGameAwaitingPlayer2() || game.getWinner() != null) return null;
+        if (game.isGameAwaitingPlayer() || game.getWinner() != null) return null;
         boolean isTheSamePlayerAskingForStatus = game.getTurn().isGuest() && asking.isGuest();
         return isTheSamePlayerAskingForStatus ? GameStatusDisplay.YOUR_TURN : GameStatusDisplay.WAITING_FOR_OPPONENT_MOVE;
     }
