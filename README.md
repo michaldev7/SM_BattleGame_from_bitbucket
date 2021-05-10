@@ -1,4 +1,4 @@
-# YOHO backend api
+# Battle game backend api
 
 ## Dependencies
 ### Other projects
@@ -8,13 +8,17 @@
 - OpenJDK 11
 - maven
 
-After script will be executed , backend will be running on http://localhost:8080/game
-
-1. Are there any assumptions in your solution that we should be aware of during the code review?
+###
+####After script will be executed , backend will be running on http://localhost:8080/game
+###
+1. ###Are there any assumptions in your solution that we should be aware of during the code review?
 Answer: I know that packages are organized more like services/dao layer and should be domain layer. But usually applications are connected with database
    so probably there will be request soon to add database then this type of packages will suit to solution.
    
-2. What technologies have you chosen to implement the backend? Why?
+b) Now game board (and ships) are generated using permutation , placed in method:  GameBoard.GenerateAllPositionsInGame
+Then , player ships positions are taken. And if game position generated with permutation is free (not used by Player as ship) then this field is marked as sea (place without ship).
+   
+###2. What technologies have you chosen to implement the backend? Why?
 -I used orika mapper for easy separation logic and have dedicated place for mapping.
    -Another tools are coming from javax.validation - this allow me to easy validate incoming request position for given pattern: @Pattern(regexp = "^(([A-z][0-9]+)|([0-9]+))$", message = "Position must match of format: one letter, then numbers").
    -Thanks to that I can do validation as fast I can and thanks to that invalid request are rejected as soon as possible, which will produce less logs if we will add any logging.
@@ -24,9 +28,10 @@ Answer: I know that packages are organized more like services/dao layer and shou
    -And AtomicInteger because of multi thread context and in multiple games at the same time, AtomicInteger is advantage in performance.
    -I used also postman for testing verification of forcing multiple request
    -I used also kdiff3 to compare changes before commit changes
-   -
-   
-3. How would you modify your application if the next feature to implement would be to allow players
+   -In bigger team, I would like to use upsource for code review
+   -I used dedicated feature branches and pull request to keep good practice of development
+
+###3. How would you modify your application if the next feature to implement would be to allow players
    to place their ships on the game board? What new things need to be implemented to make it work?
    
 This next feature will be easy to implement because I created abstract class.
@@ -40,7 +45,7 @@ Type:json
 Content: (one position or all positions at once), for example:
 {"position" : "A3"}
 
-4. Assume that we have to fetch game ID from the external application. What challenges and
+###4. Assume that we have to fetch game ID from the external application. What challenges and
 potential problems do you see and how would you prepare your application to handle them
 properly?
    Answer: I will focus to setup good architecture including timeout, validation of response.
@@ -51,3 +56,9 @@ properly?
    Thanks to that I will be able to easy find in logs what is the issue if any player will contact me when any error will throw without explanation message.
    I will also create 4 application properties for few profile like "dev,test,UAT,prod" to mock testing data on test and dev environments.
    
+
+###
+####Thank you for review this application and for your time.
+
+####Please contact me if you would like to add any new feature or in case of any questions. I am happy to help
+Contact: michalsklich@gmail.com
