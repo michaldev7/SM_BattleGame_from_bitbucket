@@ -95,7 +95,7 @@ public class Game {
         turn = turn.isHost() ? PlayerType.GUEST : PlayerType.HOST;
     }
 
-    public boolean isGameAwaitingPlayer2() {
+    public boolean isGameAwaitingPlayer() {
         return getPlayerB() == null;
     }
 

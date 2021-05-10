@@ -16,5 +16,9 @@ public interface GameService {
 
     HitResultDTO sendHitRequest(Long id, String token, HitRequestDTO hitDTO);
 
+    /*
+    According to status request, application will recognize which player is asking for status, then
+    correct status response can be prepared, because each player will have different message
+     */
     StatusDTO getStatusFor(long gameId, String token);
 }
