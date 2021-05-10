@@ -7,6 +7,35 @@
 node_modules/
 dist/
 
+##  Bakfiles, cachefiles, tmpfiles, and -dirs
+##
+*.bak
+*.cache
+*.log
+*.temp
+*.tmp
+bak
+cache
+temp
+tmp
+
+##  Dotfiles except when whitelisted
+##
+.*
+!.editorconfig
+!.git*
+!.*ignore
+!.*lint
+!.*rc
+!.*.json
+!.*.yml
+
+##  `diff` and `patch` helper files;
+##
+*.diff
+*.patch
+*.rej
+
 # Compiled Java class files
 *.class
 
@@ -48,3 +77,14 @@ Thumbs.db
 *.mov
 *.wmv
 
+##  Build intermediates;
+##
+##    * Maven / `mvn`
+##
+buildNumber.properties
+dependency-reduced-pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
